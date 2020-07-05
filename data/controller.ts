@@ -5,7 +5,7 @@ interface Character {
   abilities: string[]
 }
 // Import data.json
-let characters: Array<Character> = JSON.parse(await Deno.readTextFile('./data.json'));
+let characters: Array<Character> = JSON.parse(await Deno.readTextFile('./data/data.json'));
 
 //get all characters
 const getCharacters = ({ response }: { response: any }) => {
@@ -27,13 +27,13 @@ const addCharacter = async ({ request, response }: { request: any, response: any
   const index = characters.find((x) => x.name.toLowerCase() === character.name.toLowerCase());
   if (!index) {
     characters.push(character);
-    await Deno.writeTextFile('./data.json', JSON.stringify(characters));
+    await Deno.writeTextFile('./data/data.json', JSON.stringify(characters));
     response.body = { characterAdded: character };
     response.status = 200;
   }
   else {
     response.body = { "message": "Already exists" }; response.status = 400;
-    await Deno.writeTextFile('./data.json', JSON.stringify(characters));
+    await Deno.writeTextFile('./data/data.json', JSON.stringify(characters));
   }
 }
 
@@ -46,7 +46,7 @@ const deleteCharacter = async ({ response, params }: { response: any, params: an
     response.body = { "message": "Invalid name" }; response.status = 400;
   }
   else {
-    await Deno.writeTextFile('./data.json', JSON.stringify(characters));
+    await Deno.writeTextFile('./data/data.json', JSON.stringify(characters));
     response.body = { "message": "Deleted Successfully" }; response.status = 200;
     
   }
@@ -64,7 +64,7 @@ const updateCharacter = async ({ request, response }: { request: any, response: 
   }
   else {
     characters.push(character);
-    await Deno.writeTextFile('./data.json', JSON.stringify(characters));
+    await Deno.writeTextFile('./data/data.json', JSON.stringify(characters));
     response.body = {"message":"Updated Successfully", updatedCharacter: character };
     response.status = 200;
   }

@@ -1,5 +1,5 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
-import { getCharacters, addCharacter, getCharacterByname, deleteCharacter,updateCharacter } from "./controller.ts";
+import { getCharacters, addCharacter, getCharacterByname, deleteCharacter,updateCharacter } from "./data/controller.ts";
 //server
 const app = new Application();
 const router = new Router();
@@ -12,4 +12,5 @@ router
   .post('/add', addCharacter);
 app.use(router.routes());
 app.use(router.allowedMethods());
+console.log(`Listening to ${PORT}`)
 await app.listen({ port: PORT });
