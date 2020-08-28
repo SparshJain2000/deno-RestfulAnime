@@ -14,7 +14,7 @@ const getCharacters = ({ response }: { response: any }) => {
 
 //get a character by name
 const getCharacterByname = ({ response, params }: { response: any, params: any }) => {
-  const name = params.name;
+  const name:string = params.name;
   const character = characters.filter((character) => character.name.toLowerCase() === name.toLowerCase());
   if (character.length === 0) { response.body = { 'message': 'Not found' }; response.status = 400 }
   else { response.body = character; response.status = 200 }
@@ -52,10 +52,10 @@ const deleteCharacter = async ({ response, params }: { response: any, params: an
   }
 }
 
+//update  a character (searched by name)
 const updateCharacter = async ({ request, response }: { request: any, response: any }) => {
   const body = await request.body();
   const character: Character = body.value;
-
   const initialLength: number = characters.length;
   characters = characters.filter((x) => x.name.toLowerCase() !== character.name.toLowerCase())
   
